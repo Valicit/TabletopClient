@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TabletopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Character">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="isMonster" Type="bit" Nullable="false" />
+          <Property Name="strength" Type="int" />
+          <Property Name="vitality" Type="int" />
+          <Property Name="intelligence" Type="int" />
+          <Property Name="imagination" Type="int" />
+          <Property Name="agility" Type="int" />
+          <Property Name="dexterity" Type="int" />
+          <Property Name="luck" Type="int" />
+          <Property Name="current_hp" Type="int" />
+          <Property Name="current_mp" Type="int" />
+          <Property Name="current_ap" Type="int" />
+          <Property Name="class_resource" Type="int" />
+          <Property Name="subclass_resource" Type="int" />
+          <Property Name="exp" Type="bigint" />
+          <Property Name="chara_level" Type="int" />
+        </EntityType>
+        <EntityType Name="CharacterLevel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="chara_id" Type="int" />
+          <Property Name="class_id" Type="int" />
+          <Property Name="skill_levels" Type="varchar(max)" />
+          <Property Name="exp" Type="bigint" />
+          <Property Name="current_level" Type="int" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="skill_ids" Type="varchar(max)" />
+          <Property Name="strength" Type="float" />
+          <Property Name="vitality" Type="float" />
+          <Property Name="intelligence" Type="float" />
+          <Property Name="imagination" Type="float" />
+          <Property Name="agility" Type="float" />
+          <Property Name="dexterity" Type="float" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Monster">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="hp" Type="int" />
+          <Property Name="shield" Type="int" />
+          <Property Name="name" Type="nchar" MaxLength="25" />
+          <Property Name="skill_ids" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="max_level" Type="int" Nullable="false" />
+          <Property Name="mp_cost" Type="int" />
+          <Property Name="potency" Type="float" />
+          <Property Name="name" Type="nchar" MaxLength="20" />
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="class_id" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_CharacterLevel_Character">
+          <End Role="Character" Type="Self.Character" Multiplicity="0..1" />
+          <End Role="CharacterLevel" Type="Self.CharacterLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Character">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CharacterLevel">
+              <PropertyRef Name="chara_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CharacterLevel_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="CharacterLevel" Type="Self.CharacterLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CharacterLevel">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Monster_Character">
+          <End Role="Character" Type="Self.Character" Multiplicity="1" />
+          <End Role="Monster" Type="Self.Monster" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Character">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Monster">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Skill_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="Skill" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TabletopModelStoreContainer">
+          <EntitySet Name="Character" EntityType="Self.Character" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CharacterLevel" EntityType="Self.CharacterLevel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Monster" EntityType="Self.Monster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CharacterLevel_Character" Association="Self.FK_CharacterLevel_Character">
+            <End Role="Character" EntitySet="Character" />
+            <End Role="CharacterLevel" EntitySet="CharacterLevel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CharacterLevel_Class" Association="Self.FK_CharacterLevel_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="CharacterLevel" EntitySet="CharacterLevel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monster_Character" Association="Self.FK_Monster_Character">
+            <End Role="Character" EntitySet="Character" />
+            <End Role="Monster" EntitySet="Monster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Skill_Class" Association="Self.FK_Skill_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Skill" EntitySet="Skill" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TabletopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Character">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isMonster" Type="Boolean" Nullable="false" />
+          <Property Name="strength" Type="Int32" />
+          <Property Name="vitality" Type="Int32" />
+          <Property Name="intelligence" Type="Int32" />
+          <Property Name="imagination" Type="Int32" />
+          <Property Name="agility" Type="Int32" />
+          <Property Name="dexterity" Type="Int32" />
+          <Property Name="luck" Type="Int32" />
+          <Property Name="current_hp" Type="Int32" />
+          <Property Name="current_mp" Type="Int32" />
+          <Property Name="current_ap" Type="Int32" />
+          <Property Name="class_resource" Type="Int32" />
+          <Property Name="subclass_resource" Type="Int32" />
+          <Property Name="exp" Type="Int64" />
+          <Property Name="chara_level" Type="Int32" />
+          <NavigationProperty Name="CharacterLevels" Relationship="Self.FK_CharacterLevel_Character" FromRole="Character" ToRole="CharacterLevel" />
+          <NavigationProperty Name="Monster" Relationship="Self.FK_Monster_Character" FromRole="Character" ToRole="Monster" />
+        </EntityType>
+        <EntityType Name="CharacterLevel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="chara_id" Type="Int32" />
+          <Property Name="class_id" Type="Int32" />
+          <Property Name="skill_levels" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="exp" Type="Int64" />
+          <Property Name="current_level" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Character" Relationship="Self.FK_CharacterLevel_Character" FromRole="CharacterLevel" ToRole="Character" />
+          <NavigationProperty Name="Class" Relationship="Self.FK_CharacterLevel_Class" FromRole="CharacterLevel" ToRole="Class" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="skill_ids" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="strength" Type="Double" />
+          <Property Name="vitality" Type="Double" />
+          <Property Name="intelligence" Type="Double" />
+          <Property Name="imagination" Type="Double" />
+          <Property Name="agility" Type="Double" />
+          <Property Name="dexterity" Type="Double" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CharacterLevels" Relationship="Self.FK_CharacterLevel_Class" FromRole="Class" ToRole="CharacterLevel" />
+          <NavigationProperty Name="Skills" Relationship="Self.FK_Skill_Class" FromRole="Class" ToRole="Skill" />
+        </EntityType>
+        <EntityType Name="Monster">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="hp" Type="Int32" />
+          <Property Name="shield" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+          <Property Name="skill_ids" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Character" Relationship="Self.FK_Monster_Character" FromRole="Monster" ToRole="Character" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="max_level" Type="Int32" Nullable="false" />
+          <Property Name="mp_cost" Type="Int32" />
+          <Property Name="potency" Type="Double" />
+          <Property Name="name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="class_id" Type="Int32" />
+          <NavigationProperty Name="Class" Relationship="Self.FK_Skill_Class" FromRole="Skill" ToRole="Class" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_CharacterLevel_Character">
+          <End Role="Character" Type="Self.Character" Multiplicity="0..1" />
+          <End Role="CharacterLevel" Type="Self.CharacterLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Character">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CharacterLevel">
+              <PropertyRef Name="chara_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Monster_Character">
+          <End Role="Character" Type="Self.Character" Multiplicity="1" />
+          <End Role="Monster" Type="Self.Monster" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Character">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Monster">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CharacterLevel_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="CharacterLevel" Type="Self.CharacterLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CharacterLevel">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Skill_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+          <End Role="Skill" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TabletopEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Characters" EntityType="Self.Character" />
+          <EntitySet Name="CharacterLevels" EntityType="Self.CharacterLevel" />
+          <EntitySet Name="Classes" EntityType="Self.Class" />
+          <EntitySet Name="Monsters" EntityType="Self.Monster" />
+          <EntitySet Name="Skills" EntityType="Self.Skill" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_CharacterLevel_Character" Association="Self.FK_CharacterLevel_Character">
+            <End Role="Character" EntitySet="Characters" />
+            <End Role="CharacterLevel" EntitySet="CharacterLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monster_Character" Association="Self.FK_Monster_Character">
+            <End Role="Character" EntitySet="Characters" />
+            <End Role="Monster" EntitySet="Monsters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CharacterLevel_Class" Association="Self.FK_CharacterLevel_Class">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="CharacterLevel" EntitySet="CharacterLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Skill_Class" Association="Self.FK_Skill_Class">
+            <End Role="Class" EntitySet="Classes" />
+            <End Role="Skill" EntitySet="Skills" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TabletopModelStoreContainer" CdmEntityContainer="TabletopEntities1">
+          <EntitySetMapping Name="Characters">
+            <EntityTypeMapping TypeName="TabletopModel.Character">
+              <MappingFragment StoreEntitySet="Character">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="isMonster" ColumnName="isMonster" />
+                <ScalarProperty Name="strength" ColumnName="strength" />
+                <ScalarProperty Name="vitality" ColumnName="vitality" />
+                <ScalarProperty Name="intelligence" ColumnName="intelligence" />
+                <ScalarProperty Name="imagination" ColumnName="imagination" />
+                <ScalarProperty Name="agility" ColumnName="agility" />
+                <ScalarProperty Name="dexterity" ColumnName="dexterity" />
+                <ScalarProperty Name="luck" ColumnName="luck" />
+                <ScalarProperty Name="current_hp" ColumnName="current_hp" />
+                <ScalarProperty Name="current_mp" ColumnName="current_mp" />
+                <ScalarProperty Name="current_ap" ColumnName="current_ap" />
+                <ScalarProperty Name="class_resource" ColumnName="class_resource" />
+                <ScalarProperty Name="subclass_resource" ColumnName="subclass_resource" />
+                <ScalarProperty Name="exp" ColumnName="exp" />
+                <ScalarProperty Name="chara_level" ColumnName="chara_level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CharacterLevels">
+            <EntityTypeMapping TypeName="TabletopModel.CharacterLevel">
+              <MappingFragment StoreEntitySet="CharacterLevel">
+                <ScalarProperty Name="chara_id" ColumnName="chara_id" />
+                <ScalarProperty Name="class_id" ColumnName="class_id" />
+                <ScalarProperty Name="skill_levels" ColumnName="skill_levels" />
+                <ScalarProperty Name="exp" ColumnName="exp" />
+                <ScalarProperty Name="current_level" ColumnName="current_level" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Classes">
+            <EntityTypeMapping TypeName="TabletopModel.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="skill_ids" ColumnName="skill_ids" />
+                <ScalarProperty Name="strength" ColumnName="strength" />
+                <ScalarProperty Name="vitality" ColumnName="vitality" />
+                <ScalarProperty Name="intelligence" ColumnName="intelligence" />
+                <ScalarProperty Name="imagination" ColumnName="imagination" />
+                <ScalarProperty Name="agility" ColumnName="agility" />
+                <ScalarProperty Name="dexterity" ColumnName="dexterity" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Monsters">
+            <EntityTypeMapping TypeName="TabletopModel.Monster">
+              <MappingFragment StoreEntitySet="Monster">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="hp" ColumnName="hp" />
+                <ScalarProperty Name="shield" ColumnName="shield" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="skill_ids" ColumnName="skill_ids" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="TabletopModel.Skill">
+              <MappingFragment StoreEntitySet="Skill">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="max_level" ColumnName="max_level" />
+                <ScalarProperty Name="mp_cost" ColumnName="mp_cost" />
+                <ScalarProperty Name="potency" ColumnName="potency" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="class_id" ColumnName="class_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TabletopModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
