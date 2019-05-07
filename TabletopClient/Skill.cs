@@ -20,8 +20,5 @@ namespace TabletopClient
         public Nullable<double> potency { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public Nullable<int> class_id { get; set; }
-    
-        public virtual Class Class { get; set; }
     }
 }

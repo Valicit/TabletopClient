@@ -144,13 +144,9 @@
     <Compile Include="Character.cs">
       <DependentUpon>TabletopModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CharacterLevel.cs">
-      <DependentUpon>TabletopModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Class.cs">
       <DependentUpon>TabletopModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\DBController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -226,7 +222,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Index2.cshtml" />
     <EntityDeploy Include="TabletopModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TabletopModel.Designer.cs</LastGenOutput>
@@ -234,10 +230,13 @@
     <Content Include="TabletopModel.edmx.diagram">
       <DependentUpon>TabletopModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DAL\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

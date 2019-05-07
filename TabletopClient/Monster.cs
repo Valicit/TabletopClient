@@ -19,7 +19,5 @@ namespace TabletopClient
         public Nullable<int> shield { get; set; }
         public string name { get; set; }
         public string skill_ids { get; set; }
-    
-        public virtual Character Character { get; set; }
     }
 }

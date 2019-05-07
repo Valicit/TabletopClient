@@ -14,12 +14,6 @@ namespace TabletopClient
     
     public partial class Character
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Character()
-        {
-            this.CharacterLevels = new HashSet<CharacterLevel>();
-        }
-    
         public int id { get; set; }
         public string name { get; set; }
         public bool isMonster { get; set; }
@@ -37,9 +31,5 @@ namespace TabletopClient
         public Nullable<int> subclass_resource { get; set; }
         public Nullable<long> exp { get; set; }
         public Nullable<int> chara_level { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CharacterLevel> CharacterLevels { get; set; }
-        public virtual Monster Monster { get; set; }
     }
 }

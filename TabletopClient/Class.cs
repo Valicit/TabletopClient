@@ -14,13 +14,6 @@ namespace TabletopClient
     
     public partial class Class
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Class()
-        {
-            this.CharacterLevels = new HashSet<CharacterLevel>();
-            this.Skills = new HashSet<Skill>();
-        }
-    
         public int id { get; set; }
         public string skill_ids { get; set; }
         public Nullable<double> strength { get; set; }
@@ -30,10 +23,5 @@ namespace TabletopClient
         public Nullable<double> agility { get; set; }
         public Nullable<double> dexterity { get; set; }
         public string name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CharacterLevel> CharacterLevels { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Skill> Skills { get; set; }
     }
 }

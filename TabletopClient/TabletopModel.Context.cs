@@ -13,10 +13,10 @@ namespace TabletopClient
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TabletopEntities1 : DbContext
+    public partial class TabletopEntities : DbContext
     {
-        public TabletopEntities1()
-            : base("name=TabletopEntities1")
+        public TabletopEntities()
+            : base("TabletopEntities")
         {
         }
     
@@ -26,7 +26,6 @@ namespace TabletopClient
         }
     
         public virtual DbSet<Character> Characters { get; set; }
-        public virtual DbSet<CharacterLevel> CharacterLevels { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Monster> Monsters { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
