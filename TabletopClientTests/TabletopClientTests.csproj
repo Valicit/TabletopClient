@@ -65,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TabletopClient\TabletopClient.csproj">
-      <Project>{c896db2b-e6f5-47d1-af6b-10b768288b0e}</Project>
+      <Project>{404d43c1-6dc2-42d2-a60e-236f5e4bda93}</Project>
       <Name>TabletopClient</Name>
     </ProjectReference>
   </ItemGroup>

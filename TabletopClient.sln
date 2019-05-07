@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabletopClient", "TabletopClient\TabletopClient.csproj", "{C896DB2B-E6F5-47D1-AF6B-10B768288B0E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabletopClientTests", "TabletopClientTests\TabletopClientTests.csproj", "{3AFB089B-6A05-488B-9304-073D03081BAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabletopClient", "TabletopClient\TabletopClient.csproj", "{404D43C1-6DC2-42D2-A60E-236F5E4BDA93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C896DB2B-E6F5-47D1-AF6B-10B768288B0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C896DB2B-E6F5-47D1-AF6B-10B768288B0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C896DB2B-E6F5-47D1-AF6B-10B768288B0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C896DB2B-E6F5-47D1-AF6B-10B768288B0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3AFB089B-6A05-488B-9304-073D03081BAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3AFB089B-6A05-488B-9304-073D03081BAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AFB089B-6A05-488B-9304-073D03081BAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AFB089B-6A05-488B-9304-073D03081BAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{404D43C1-6DC2-42D2-A60E-236F5E4BDA93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{404D43C1-6DC2-42D2-A60E-236F5E4BDA93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{404D43C1-6DC2-42D2-A60E-236F5E4BDA93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{404D43C1-6DC2-42D2-A60E-236F5E4BDA93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

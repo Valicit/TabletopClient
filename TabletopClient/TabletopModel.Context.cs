@@ -16,7 +16,7 @@ namespace TabletopClient
     public partial class TabletopEntities : DbContext
     {
         public TabletopEntities()
-            : base("TabletopEntities")
+            : base("name=TabletopEntities")
         {
         }
     
