@@ -16,20 +16,24 @@ namespace TabletopClient
     {
         public int id { get; set; }
         public string name { get; set; }
-        public bool isMonster { get; set; }
-        public Nullable<int> strength { get; set; }
-        public Nullable<int> vitality { get; set; }
-        public Nullable<int> intelligence { get; set; }
-        public Nullable<int> imagination { get; set; }
-        public Nullable<int> agility { get; set; }
-        public Nullable<int> dexterity { get; set; }
-        public Nullable<int> luck { get; set; }
-        public Nullable<int> current_hp { get; set; }
-        public Nullable<int> current_mp { get; set; }
-        public Nullable<int> current_ap { get; set; }
-        public Nullable<int> class_resource { get; set; }
-        public Nullable<int> subclass_resource { get; set; }
-        public Nullable<long> exp { get; set; }
-        public Nullable<int> chara_level { get; set; }
+        public int strength { get; set; }
+        public int vitality { get; set; }
+        public int intelligence { get; set; }
+        public int imagination { get; set; }
+        public int agility { get; set; }
+        public int dexterity { get; set; }
+        public int luck { get; set; }
+        public int current_hp { get; set; }
+        public int current_mp { get; set; }
+        public int current_ap { get; set; }
+        public int class_resource { get; set; }
+        public int subclass_resource { get; set; }
+        public string class_exp { get; set; }
+        public string skill_ranks { get; set; }
+        public int current_class_id { get; set; }
+        public int current_subclass_id { get; set; }
+        public string current_reactions { get; set; }
+        public string current_passives { get; set; }
+        public string current_movements { get; set; }
     }
 }

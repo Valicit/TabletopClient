@@ -4,28 +4,32 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TabletopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TabletopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Character">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" />
-          <Property Name="isMonster" Type="bit" Nullable="false" />
-          <Property Name="strength" Type="int" />
-          <Property Name="vitality" Type="int" />
-          <Property Name="intelligence" Type="int" />
-          <Property Name="imagination" Type="int" />
-          <Property Name="agility" Type="int" />
-          <Property Name="dexterity" Type="int" />
-          <Property Name="luck" Type="int" />
-          <Property Name="current_hp" Type="int" />
-          <Property Name="current_mp" Type="int" />
-          <Property Name="current_ap" Type="int" />
-          <Property Name="class_resource" Type="int" />
-          <Property Name="subclass_resource" Type="int" />
-          <Property Name="exp" Type="bigint" />
-          <Property Name="chara_level" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="strength" Type="int" Nullable="false" />
+          <Property Name="vitality" Type="int" Nullable="false" />
+          <Property Name="intelligence" Type="int" Nullable="false" />
+          <Property Name="imagination" Type="int" Nullable="false" />
+          <Property Name="agility" Type="int" Nullable="false" />
+          <Property Name="dexterity" Type="int" Nullable="false" />
+          <Property Name="luck" Type="int" Nullable="false" />
+          <Property Name="current_hp" Type="int" Nullable="false" />
+          <Property Name="current_mp" Type="int" Nullable="false" />
+          <Property Name="current_ap" Type="int" Nullable="false" />
+          <Property Name="class_resource" Type="int" Nullable="false" />
+          <Property Name="subclass_resource" Type="int" Nullable="false" />
+          <Property Name="class_exp" Type="varchar(max)" Nullable="false" />
+          <Property Name="skill_ranks" Type="varchar(max)" Nullable="false" />
+          <Property Name="current_class_id" Type="int" Nullable="false" />
+          <Property Name="current_subclass_id" Type="int" Nullable="false" />
+          <Property Name="current_reactions" Type="varchar(max)" Nullable="false" />
+          <Property Name="current_passives" Type="varchar(max)" Nullable="false" />
+          <Property Name="current_movements" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Class">
           <Key>
@@ -50,6 +54,18 @@
           <Property Name="shield" Type="int" />
           <Property Name="name" Type="nchar" MaxLength="25" />
           <Property Name="skill_ids" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="SessionValues">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PC1" Type="int" />
+          <Property Name="PC2" Type="int" />
+          <Property Name="PC3" Type="int" />
+          <Property Name="PC4" Type="int" />
+          <Property Name="PC5" Type="int" />
+          <Property Name="PC6" Type="int" />
         </EntityType>
         <EntityType Name="Skill">
           <Key>
@@ -76,36 +92,14 @@
           <EntitySet Name="Character" EntityType="Self.Character" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Monster" EntityType="Self.Monster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SessionValues" EntityType="Self.SessionValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TabletopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Character">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="isMonster" Type="Boolean" Nullable="false" />
-          <Property Name="strength" Type="Int32" />
-          <Property Name="vitality" Type="Int32" />
-          <Property Name="intelligence" Type="Int32" />
-          <Property Name="imagination" Type="Int32" />
-          <Property Name="agility" Type="Int32" />
-          <Property Name="dexterity" Type="Int32" />
-          <Property Name="luck" Type="Int32" />
-          <Property Name="current_hp" Type="Int32" />
-          <Property Name="current_mp" Type="Int32" />
-          <Property Name="current_ap" Type="Int32" />
-          <Property Name="class_resource" Type="Int32" />
-          <Property Name="subclass_resource" Type="Int32" />
-          <Property Name="exp" Type="Int64" />
-          <Property Name="chara_level" Type="Int32" />
-        </EntityType>
         <EntityType Name="Class">
           <Key>
             <PropertyRef Name="id" />
@@ -152,41 +146,57 @@
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityContainer Name="TabletopEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Characters" EntityType="Self.Character" />
           <EntitySet Name="Classes" EntityType="Self.Class" />
           <EntitySet Name="Monsters" EntityType="Self.Monster" />
           <EntitySet Name="Skills" EntityType="Self.Skill" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="SessionValues" EntityType="TabletopModel.SessionValue" />
+          <EntitySet Name="Characters" EntityType="TabletopModel.Character" />
         </EntityContainer>
+        <EntityType Name="SessionValue">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PC1" Type="Int32" />
+          <Property Name="PC2" Type="Int32" />
+          <Property Name="PC3" Type="Int32" />
+          <Property Name="PC4" Type="Int32" />
+          <Property Name="PC5" Type="Int32" />
+          <Property Name="PC6" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Character">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="strength" Type="Int32" Nullable="false" />
+          <Property Name="vitality" Type="Int32" Nullable="false" />
+          <Property Name="intelligence" Type="Int32" Nullable="false" />
+          <Property Name="imagination" Type="Int32" Nullable="false" />
+          <Property Name="agility" Type="Int32" Nullable="false" />
+          <Property Name="dexterity" Type="Int32" Nullable="false" />
+          <Property Name="luck" Type="Int32" Nullable="false" />
+          <Property Name="current_hp" Type="Int32" Nullable="false" />
+          <Property Name="current_mp" Type="Int32" Nullable="false" />
+          <Property Name="current_ap" Type="Int32" Nullable="false" />
+          <Property Name="class_resource" Type="Int32" Nullable="false" />
+          <Property Name="subclass_resource" Type="Int32" Nullable="false" />
+          <Property Name="class_exp" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="skill_ranks" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="current_class_id" Type="Int32" Nullable="false" />
+          <Property Name="current_subclass_id" Type="Int32" Nullable="false" />
+          <Property Name="current_reactions" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="current_passives" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="current_movements" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TabletopModelStoreContainer" CdmEntityContainer="TabletopEntities">
-          <EntitySetMapping Name="Characters">
-            <EntityTypeMapping TypeName="TabletopModel.Character">
-              <MappingFragment StoreEntitySet="Character">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="isMonster" ColumnName="isMonster" />
-                <ScalarProperty Name="strength" ColumnName="strength" />
-                <ScalarProperty Name="vitality" ColumnName="vitality" />
-                <ScalarProperty Name="intelligence" ColumnName="intelligence" />
-                <ScalarProperty Name="imagination" ColumnName="imagination" />
-                <ScalarProperty Name="agility" ColumnName="agility" />
-                <ScalarProperty Name="dexterity" ColumnName="dexterity" />
-                <ScalarProperty Name="luck" ColumnName="luck" />
-                <ScalarProperty Name="current_hp" ColumnName="current_hp" />
-                <ScalarProperty Name="current_mp" ColumnName="current_mp" />
-                <ScalarProperty Name="current_ap" ColumnName="current_ap" />
-                <ScalarProperty Name="class_resource" ColumnName="class_resource" />
-                <ScalarProperty Name="subclass_resource" ColumnName="subclass_resource" />
-                <ScalarProperty Name="exp" ColumnName="exp" />
-                <ScalarProperty Name="chara_level" ColumnName="chara_level" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Classes">
             <EntityTypeMapping TypeName="TabletopModel.Class">
               <MappingFragment StoreEntitySet="Class">
@@ -233,6 +243,46 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SessionValues">
+            <EntityTypeMapping TypeName="TabletopModel.SessionValue">
+              <MappingFragment StoreEntitySet="SessionValues">
+                <ScalarProperty Name="PC6" ColumnName="PC6" />
+                <ScalarProperty Name="PC5" ColumnName="PC5" />
+                <ScalarProperty Name="PC4" ColumnName="PC4" />
+                <ScalarProperty Name="PC3" ColumnName="PC3" />
+                <ScalarProperty Name="PC2" ColumnName="PC2" />
+                <ScalarProperty Name="PC1" ColumnName="PC1" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Characters">
+            <EntityTypeMapping TypeName="TabletopModel.Character">
+              <MappingFragment StoreEntitySet="Character">
+                <ScalarProperty Name="current_movements" ColumnName="current_movements" />
+                <ScalarProperty Name="current_passives" ColumnName="current_passives" />
+                <ScalarProperty Name="current_reactions" ColumnName="current_reactions" />
+                <ScalarProperty Name="current_subclass_id" ColumnName="current_subclass_id" />
+                <ScalarProperty Name="current_class_id" ColumnName="current_class_id" />
+                <ScalarProperty Name="skill_ranks" ColumnName="skill_ranks" />
+                <ScalarProperty Name="class_exp" ColumnName="class_exp" />
+                <ScalarProperty Name="subclass_resource" ColumnName="subclass_resource" />
+                <ScalarProperty Name="class_resource" ColumnName="class_resource" />
+                <ScalarProperty Name="current_ap" ColumnName="current_ap" />
+                <ScalarProperty Name="current_mp" ColumnName="current_mp" />
+                <ScalarProperty Name="current_hp" ColumnName="current_hp" />
+                <ScalarProperty Name="luck" ColumnName="luck" />
+                <ScalarProperty Name="dexterity" ColumnName="dexterity" />
+                <ScalarProperty Name="agility" ColumnName="agility" />
+                <ScalarProperty Name="imagination" ColumnName="imagination" />
+                <ScalarProperty Name="intelligence" ColumnName="intelligence" />
+                <ScalarProperty Name="vitality" ColumnName="vitality" />
+                <ScalarProperty Name="strength" ColumnName="strength" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
